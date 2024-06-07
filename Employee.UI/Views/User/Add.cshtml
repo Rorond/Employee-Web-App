@@ -1,0 +1,28 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Add";
+}
+
+
+<div class="d-flex justify-content-between mb-3">
+    <h3 class="mb-3"> Add New User</h3>
+    <a href="/User/List" class="btn btn-outline-primary mb-3">Back To List</a>
+</div>
+
+<form asp-action="Add">
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" placeholder="example@gmail.com" class="form-control" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">Password</label>
+        <input asp-for="Password" type="text" placeholder="P@ssw0rd" class="form-control" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div class="d-flex justify-content-end mt-5">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+

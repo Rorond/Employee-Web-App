@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Employee>
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <h3>List Employee</h3>
+    <a href="/Employee/Add" class="btn btn-primary">Add New Employee</a>
+</div>
+
+<div class="input-group mb-3" style="width: 500px;">
+    <input id="searchInput" type="text" class="form-control" placeholder="Search Employee" aria-label="Search Employee" aria-describedby="button-search">
+    <button class="btn btn-primary" type="button" id="button-search">Search</button>
+</div>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Birth</th>
+                <th>Gender</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Position</td>
+                    <td>@employee.Name</td>
+                    <td>@employee.Birth</td>
+                    <td>@employee.Gender</td>
+                    <td>
+                        <a href="/Employee/Show?id=@employee.Id" class="btn btn-primary">Show</a>
+                        <a href="/Employee/Edit?id=@employee.Id" class="btn btn-success">Edit</a>
+                        <a href="/Employee/Delete?id=@employee.Id" onclick="return window.confirm('Are you sure to delete this record?')" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('button-search').addEventListener('click', function () {
+                var searchString = document.getElementById('searchInput').value;
+                window.location.href = '/Employee/List?searchString=' + searchString;
+            });
+        });
+    </script>
+}

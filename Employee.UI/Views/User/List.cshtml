@@ -1,0 +1,65 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <h3>List User</h3>
+    <a href="/User/Add" class="btn btn-primary">Add New User</a>
+</div>
+
+<div class="input-group mb-3" style="width: 500px;">
+    <input id="searchInput" type="text" class="form-control" placeholder="Search User" aria-label="Search User" aria-describedby="button-search">
+    <button class="btn btn-primary" type="button" id="button-search">Search</button>
+</div>
+
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <a href="/User/Edit?id=@user.Id" class="btn btn-success">Edit</a>
+                        <a href="/User/Delete?id=@user.Id" onclick="return window.confirm('Are you sure to delete this record?')" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (TempData["msg"] != null)
+    {
+        <script>
+            Toastify({
+                text: '@TempData["msg"]',
+                duration: 3000, // Durasi notifikasi dalam milidetik
+                gravity: "top", // Letak notifikasi (top, bottom, atau center)
+                position: "right", // Posisi notifikasi (left atau right)
+                backgroundColor: "#4CAF50", // Warna latar belakang
+            }).showToast();
+        </script>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('button-search').addEventListener('click', function () {
+                var searchString = document.getElementById('searchInput').value;
+                window.location.href = '/User/List?searchString=' + searchString;
+            });
+        });
+    </script>
+}
+
+
