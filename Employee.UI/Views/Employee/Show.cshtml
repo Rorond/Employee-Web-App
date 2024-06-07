@@ -1,4 +1,4 @@
-﻿
+﻿@model Employee
 @{
     ViewData["Title"] = "Show";
 }
@@ -8,6 +8,113 @@
     <a href="/Employee/List" class="btn btn-outline-primary mb-3">Back To List</a>
 </div>
 
-<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
-    <h5 class="text-center">Dalam Pengembangan</h5>
-</div>
+<form asp-action="Edit" class="d-flex flex-wrap justify-content-between">
+    <input type="hidden" asp-for="Id" />
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Position" class="form-label">Posisi yang di lamar</label>
+        <input asp-for="Position" type="text" placeholder=".Net Developer" class="form-control" />
+        <span asp-validation-for="Position"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Name" class="form-label">Nama</label>
+        <input asp-for="Name" type="text" placeholder="Budi Rahmat" class="form-control" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Nik" class="form-label">No. KTP</label>
+        <input asp-for="Nik" type="text" placeholder="" class="form-control" />
+        <span asp-validation-for="Nik"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Place_Of_Birth" class="form-label">Tempat Lahir</label>
+        <input asp-for="Place_Of_Birth" type="text" placeholder="" class="form-control" />
+        <span asp-validation-for="Place_Of_Birth"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Birth" class="form-label">Tanggal Lahir</label>
+        <input asp-for="Birth" class="form-control" />
+        <span asp-validation-for="Birth" class="text-danger"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Gender" class="form-label">Gender</label>
+        <select asp-for="Gender" class="form-select">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <span asp-validation-for="Gender"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Religion" class="form-label">Religion</label>
+        <input asp-for="Religion" type="text" placeholder="Islam" class="form-control" />
+        <span asp-validation-for="Religion"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Blood_Group" class="form-label">Blood Group</label>
+        <input asp-for="Blood_Group" type="text" placeholder="A/B/AB/O" class="form-control" />
+        <span asp-validation-for="Blood_Group"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Status" class="form-label">Status</label>
+        <input asp-for="Status" type="text" placeholder="Single/Married" class="form-control" />
+        <span asp-validation-for="Status"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Address_Ktp" class="form-label">Address KTP</label>
+        <textarea asp-for="Address_Ktp" type="text" class="form-control"></textarea>
+        <span asp-validation-for="Address_Ktp"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Address_Life" class="form-label">Address Life</label>
+        <textarea asp-for="Address_Life" type="text" class="form-control"></textarea>
+        <span asp-validation-for="Address_Life"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" placeholder="example@gmail.com" class="form-control" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Tlp" class="form-label">Telephone</label>
+        <input asp-for="Tlp" type="text" placeholder="1234567890" class="form-control" />
+        <span asp-validation-for="Tlp"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Relatives" class="form-label">Relatives</label>
+        <input asp-for="Relatives" type="text" class="form-control" />
+        <span asp-validation-for="Relatives"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Skill" class="form-label">Skill</label>
+        <input asp-for="Skill" type="text" class="form-control" />
+        <span asp-validation-for="Skill"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Expected_Sallary" class="form-label">Expected Salary</label>
+        <input asp-for="Expected_Sallary" type="number" class="form-control" />
+        <span asp-validation-for="Expected_Sallary"></span>
+    </div>
+    <div class="wrapper mt-3" style="width: 48%;">
+        <label asp-for="Readdy_To_Be_Placed" class="form-label">Bersedia Ditempatkan Di seluruh wilayah kerja perusahaan</label>
+        <div class="form-check">
+            <input asp-for="Readdy_To_Be_Placed" class="form-check-input" type="checkbox" value="true">
+            <span class="form-check-label">Ya</span>
+        </div>
+        <span asp-validation-for="Readdy_To_Be_Placed"></span>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            // Inisialisasi datepicker
+            $("#Birth").datepicker({
+                dateFormat: 'yy-mm-dd', // Format tanggal yang diinginkan
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+    </script>
+}
