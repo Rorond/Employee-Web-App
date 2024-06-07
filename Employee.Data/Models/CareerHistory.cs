@@ -16,7 +16,7 @@ namespace Employee.Data.Models
         public int Year { get; set;}
 
         [ForeignKey(nameof(FkEmployeeId))]
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
         public int FkEmployeeId { get; set; }
     }
 }

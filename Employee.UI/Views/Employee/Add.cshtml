@@ -484,9 +484,9 @@
                             `);
 
                     if (model.Trainings) {
-                        model.Trainings.push({ Name: name, Certificate: certificate, Year: year });
+                        model.Trainings.push({ Name: name, Sertificate: certificate, Year: year });
                     } else {
-                        model.Trainings = [{ Name: name, Certificate: certificate, Year: year }];
+                        model.Trainings = [{ Name: name, Sertificate: certificate, Year: year }];
                     }
 
                     rowIdx++;
@@ -557,7 +557,8 @@
                     Last_Salary: lastSalary,
                     Year: year
                 };
-
+                let d = "test";
+                window.location.href = '/Employee/UpdateForm?model=' + companyName;
                 // Tambahkan atau perbarui data career history sesuai dengan indeks
                 if (index === 'new') {
                     $('#careerHistoryTable tbody').append(`

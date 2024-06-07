@@ -11,6 +11,7 @@ namespace Employee.Data.Models
         public Employee()
         {
             StudyHistories = new List<StudyHistory>();
+            CareerHistories = new List<CareerHistory>();
         }
         public int Id { get; set; }
         public string Position { get; set; }
