@@ -8,6 +8,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddTransient<ICareerRepository, CareerRepository>();
+builder.Services.AddTransient<IStudyRepository, StudyRepository>();
+builder.Services.AddTransient<ITrainingRepository, TrainingRepository>();
 
 var app = builder.Build();
 
@@ -29,6 +32,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     //pattern: "{controller=Home}/{action=Index}/{id?}");
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=User}/{action=Login}");
 
 app.Run();

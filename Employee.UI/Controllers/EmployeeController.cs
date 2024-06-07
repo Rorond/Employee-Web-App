@@ -8,14 +8,23 @@ namespace Employee.UI.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _repository;
-        public EmployeeController(IEmployeeRepository repository)
+        private readonly ICareerRepository _careerRepository;
+        private readonly IStudyRepository _studyRepository;
+        private readonly ITrainingRepository _trainingRepository;
+        public EmployeeController(
+            IEmployeeRepository repository, ICareerRepository careerRepository, IStudyRepository studyRepository, ITrainingRepository trainingRepository)
         {
             _repository = repository;
+            _careerRepository = careerRepository;
+            _studyRepository = studyRepository;
+            _trainingRepository = trainingRepository;
         }
 
         public async Task<IActionResult> Add()
         {
-            return View();
+            Model model = new Model();
+            model.StudyHistories = new List<StudyHistory>();
+            return View(model);
         }
 
         [HttpPost]
@@ -25,16 +34,32 @@ namespace Employee.UI.Controllers
             {
                 if (!ModelState.IsValid)
                     return View(model);
-                bool result = await _repository.AddAsync(model);
-                if (result)
+
+                int id = await _repository.AddAsync(model);
+
+                if (model.StudyHistories != null)
                 {
-                    TempData["msg"] = "Successfully added";
-                    return RedirectToAction(nameof(List));
+                    foreach (var item in model.StudyHistories)
+                    {
+                        item.FkEmployeeId = id;
+                        await _studyRepository.AddAsync(item);
+                    }
                 }
-                else
-                {
-                    TempData["msg"] = "Failed added";
-                }
+
+                //foreach (var item in model.CareerHistories)
+                //{
+                //    item.FkEmployeeId = id;
+                //    await _careerRepository.AddAsync(item);
+                //}
+
+                //foreach (var item in model.Trainings)
+                //{
+                //    item.FkEmployeeId = id;
+                //    await _trainingRepository.AddAsync(item);
+                //}
+
+                TempData["msg"] = "Successfully added";
+                return RedirectToAction(nameof(List));
 
             }
             catch (Exception ex)
@@ -77,7 +102,7 @@ namespace Employee.UI.Controllers
                 TempData["msg"] = "Failed update";
             }
 
-            return RedirectToAction(nameof(Add));
+            return RedirectToAction(nameof(Edit));
         }
 
         public async Task<IActionResult> Delete(int id)

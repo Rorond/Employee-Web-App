@@ -31,7 +31,7 @@
     </div>
     <div class="wrapper mt-3" style="width: 48%;">
         <label asp-for="Birth" class="form-label">Tanggal Lahir</label>
-        <input asp-for="Birth" class="form-control" />
+        <input asp-for="Birth" id="Birth" class="form-control" />
         <span asp-validation-for="Birth" class="text-danger"></span>
     </div>
     <div class="wrapper mt-3" style="width: 48%;">
@@ -101,7 +101,225 @@
         </div>
         <span asp-validation-for="Readdy_To_Be_Placed"></span>
     </div>
-    
+    <div class="wrapper mt-3 w-100">
+        <div class="d-flex justify-content-between mb-3">
+            <h4>Study Histories</h4>
+            <button type="button" class="btn btn-outline-primary" id="addNewStudyHistory" data-bs-toggle="modal" data-bs-target="#studyHistoryModal">Add New Study History</button>
+        </div>
+
+        <table class="table table-bordered" id="studyHistoryTable">
+            <thead>
+                <tr>
+                    <th>Last Study</th>
+                    <th>Institution Name</th>
+                    <th>Major</th>
+                    <th>Graduation Year</th>
+                    <th>GPA</th>
+                    <th style="max-width:2rem;" class="flex justify-content-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.StudyHistories != null)
+                {
+                    @for (int i = 0; i < Model.StudyHistories.Count; i++)
+                    {
+                        <tr>
+                            <td><label>@Model.StudyHistories[i].Last_Study</label></td>
+                            <td><label>@Model.StudyHistories[i].Intitude_Name</label></td>
+                            <td><label>@Model.StudyHistories[i].Jurusan</label></td>
+                            <td><label>@Model.StudyHistories[i].Tahun_Lulus</label></td>
+                            <td><label>@Model.StudyHistories[i].Ipk</label></td>
+                            <td style="max-width:2rem;" class="flex justify-content-end">
+                                <button type="button" class="btn btn-primary edit-row" data-bs-toggle="modal" data-bs-target="#studyHistoryModal" data-id="@i">Edit</button>
+                                <button type="button" class="btn btn-danger remove-row">Remove</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="studyHistoryModal" tabindex="-1" aria-labelledby="studyHistoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="studyHistoryModalLabel">Study History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="studyHistoryIndex" />
+                    <div class="mb-3">
+                        <label for="lastStudy" class="form-label">Last Study</label>
+                        <input type="text" class="form-control" id="lastStudy">
+                    </div>
+                    <div class="mb-3">
+                        <label for="institutionName" class="form-label">Institution Name</label>
+                        <input type="text" class="form-control" id="institutionName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jurusan" class="form-label">Major</label>
+                        <input type="text" class="form-control" id="jurusan">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tahunLulus" class="form-label">Graduation Year</label>
+                        <input type="number" class="form-control" id="tahunLulus">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ipk" class="form-label">GPA</label>
+                        <input type="text" class="form-control" id="ipk">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveStudyHistory">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="wrapper mt-3 w-100">
+        <div class="d-flex justify-content-between mb-3">
+            <h4>Training Histories</h4>
+            <button type="button" class="btn btn-outline-primary" id="addNewTrainingHistory" data-bs-toggle="modal" data-bs-target="#trainingHistoryModal">Add New Training History</button>
+        </div>
+
+        <table class="table table-bordered" id="trainingHistoryTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Certificate</th>
+                    <th>Year</th>
+                    <th style="max-width:2rem;" class="flex justify-content-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Trainings != null)
+                {
+                    @for (int i = 0; i < Model.Trainings.Count; i++)
+                    {
+                        <tr>
+                            <td><label>@Model.Trainings[i].Name</label></td>
+                            <td><label>@Model.Trainings[i].Sertificate</label></td>
+                            <td><label>@Model.Trainings[i].Year</label></td>
+                            <td style="max-width:2rem;" class="flex justify-content-end">
+                                <button type="button" class="btn btn-primary edit-row" data-bs-toggle="modal" data-bs-target="#trainingHistoryModal" data-id="@i">Edit</button>
+                                <button type="button" class="btn btn-danger remove-row">Remove</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="trainingHistoryModal" tabindex="-1" aria-labelledby="trainingHistoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="trainingHistoryModalLabel">Training History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="trainingHistoryIndex" />
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="year" class="form-label">Year</label>
+                        <input type="text" class="form-control" id="year">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="certificate">
+                        <label class="form-check-label" for="certificate">Certificate</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveTrainingHistory">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="wrapper mt-3 w-100">
+        <div class="d-flex justify-content-between mb-3">
+            <h4>Career Histories</h4>
+            <button type="button" class="btn btn-outline-primary" id="addNewCareerHistory" data-bs-toggle="modal" data-bs-target="#careerHistoryModal">Add New Career History</button>
+        </div>
+
+        <table class="table table-bordered" id="careerHistoryTable">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Last Position</th>
+                    <th>Last Salary</th>
+                    <th>Year</th>
+                    <th style="max-width:2rem;" class="flex justify-content-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.CareerHistories != null)
+                {
+                    @for (int i = 0; i < Model.CareerHistories.Count; i++)
+                    {
+                        <tr>
+                            <td><label>@Model.CareerHistories[i].Company_Name</label></td>
+                            <td><label>@Model.CareerHistories[i].Last_Position</label></td>
+                            <td><label>@Model.CareerHistories[i].Last_Salary</label></td>
+                            <td><label>@Model.CareerHistories[i].Year</label></td>
+                            <td style="max-width:2rem;" class="flex justify-content-end">
+                                <button type="button" class="btn btn-primary edit-row" data-bs-toggle="modal" data-bs-target="#careerHistoryModal" data-id="@i">Edit</button>
+                                <button type="button" class="btn btn-danger remove-row">Remove</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="careerHistoryModal" tabindex="-1" aria-labelledby="careerHistoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="careerHistoryModalLabel">Career History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="careerHistoryIndex" />
+                    <div class="mb-3">
+                        <label for="companyName" class="form-label">Company Name</label>
+                        <input type="text" class="form-control" id="companyName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastPosition" class="form-label">Last Position</label>
+                        <input type="text" class="form-control" id="lastPosition">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastSalary" class="form-label">Last Salary</label>
+                        <input type="number" class="form-control" id="lastSalary">
+                    </div>
+                    <div class="mb-3">
+                        <label for="year" class="form-label">Year</label>
+                        <input type="number" class="form-control" id="year">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveCareerHistory">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     @if (TempData["msg"] != null)
     {
@@ -109,21 +327,277 @@
             @TempData["msg"]
         </div>
     }
-    <div class="w-100 m-3 d-flex justify-content-end">
+    <div class="w-100 mt-5 d-flex justify-content-end">
     <button type="submit" class="btn btn-primary w-25">Save</button>
     </div>
+
+
 </form>
-
-
 
 @section Scripts {
     <script>
         $(function () {
-            $("#Birth").datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true
+            let model = @Html.Raw(Json.Serialize(Model));
+            let rowIdx = @Model.StudyHistories?.Count ?? 0;
+
+            function resetModal() {
+                $('#studyHistoryIndex').val('');
+                $('#lastStudy').val('');
+                $('#institutionName').val('');
+                $('#jurusan').val('');
+                $('#tahunLulus').val('');
+                $('#ipk').val('');
+            }
+
+            $('#addNewStudyHistory').click(function () {
+                resetModal();
+                $('#studyHistoryIndex').val('new');
+                $('#studyHistoryModalLabel').text('Add New Study History');
+            });
+
+            $('#studyHistoryTable').on('click', '.edit-row', function () {
+                let index = $(this).data('id');
+                let row = $('#studyHistoryTable tbody tr').eq(index);
+
+                $('#studyHistoryIndex').val(index);
+                $('#lastStudy').val(row.find('td:eq(0) label').text());
+                $('#institutionName').val(row.find('td:eq(1) label').text());
+                $('#jurusan').val(row.find('td:eq(2) label').text());
+                $('#tahunLulus').val(row.find('td:eq(3) label').text());
+                $('#ipk').val(row.find('td:eq(4) label').text());
+
+                $('#studyHistoryModalLabel').text('Edit Study History');
+                $('#studyHistoryModal').modal('show');
+            });
+
+            $('#saveStudyHistory').click(function () {
+                let index = $('#studyHistoryIndex').val();
+                let lastStudy = $('#lastStudy').val();
+                let institutionName = $('#institutionName').val();
+                let jurusan = $('#jurusan').val();
+                let tahunLulus = $('#tahunLulus').val();
+                let ipk = $('#ipk').val();
+
+                // Buat objek baru untuk menyimpan data studi
+                let studyData = {
+                    Last_Study: lastStudy,
+                    Intitude_Name: institutionName,
+                    Jurusan: jurusan,
+                    Tahun_Lulus: tahunLulus,
+                    Ipk: ipk
+                };
+
+                // Tambahkan data studi baru ke dalam objek model.StudyHistories
+                if (index === 'new') {
+                    $('#studyHistoryTable tbody').append(`
+                    <tr>
+                        <td><label>${lastStudy}</label></td>
+                        <td><label>${institutionName}</label></td>
+                        <td><label>${jurusan}</label></td>
+                        <td><label>${tahunLulus}</label></td>
+                        <td><label>${ipk}</label></td>
+                                <td style="max-width:5rem;" class="flex justify-content-end">
+                            <button type="button" class="btn btn-primary edit-row" data-id="${rowIdx}">Edit</button>
+                            <button type="button" class="btn btn-danger remove-row">Remove</button>
+                        </td>
+                    </tr>
+                `);
+
+                    if (model.StudyHistories) {
+                        model.StudyHistories.push(studyData); // Tambahkan data studi ke dalam objek model.StudyHistories
+                    } else {
+                        model.StudyHistories = [studyData]; // Buat array baru jika model.StudyHistories belum ada
+                    }
+
+                    rowIdx++;
+                } else {
+                    let row = $('#studyHistoryTable tbody tr').eq(index);
+                    row.find('td:eq(0) label').text(lastStudy);
+                    row.find('td:eq(1) label').text(institutionName);
+                    row.find('td:eq(2) label').text(jurusan);
+                    row.find('td:eq(3) label').text(tahunLulus);
+                    row.find('td:eq(4) label').text(ipk);
+
+                    model.StudyHistories[index] = studyData; // Perbarui data studi dalam objek model.StudyHistories
+                }
+
+                $('#studyHistoryModal').modal('hide');
+                resetModal();
+            });
+
+
+            $('#studyHistoryTable').on('click', '.remove-row', function () {
+                $(this).closest('tr').remove();
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            let model = @Html.Raw(Json.Serialize(Model));
+            let rowIdx = @(Model.Trainings != null ? Model.Trainings.Count : 0);
+
+            function resetTrainingModal() {
+                $('#trainingHistoryIndex').val('');
+                $('#name').val('');
+                $('#certificate').prop('checked', false);
+                $('#year').val('');
+            }
+
+            $('#addNewTrainingHistory').click(function () {
+                resetTrainingModal();
+                $('#trainingHistoryIndex').val('new');
+                $('#trainingHistoryModalLabel').text('Add New Training History');
+            });
+
+            $('#trainingHistoryTable').on('click', '.edit-row', function () {
+                let index = $(this).data('id');
+                let row = $('#trainingHistoryTable tbody tr').eq(index);
+
+                $('#trainingHistoryIndex').val(index);
+                $('#name').val(row.find('td:eq(0) label').text());
+                $('#certificate').prop('checked', row.find('td:eq(1) label').text() === "True");
+                $('#year').val(row.find('td:eq(2) label').text());
+
+                $('#trainingHistoryModalLabel').text('Edit Training History');
+                $('#trainingHistoryModal').modal('show');
+            });
+
+            $('#saveTrainingHistory').click(function () {
+                let index = $('#trainingHistoryIndex').val();
+                let name = $('#name').val();
+                let certificate = $('#certificate').is(':checked');
+                let year = $('#year').val();
+
+                // Tambahkan atau perbarui data training sesuai dengan indeks
+                if (index === 'new') {
+                    $('#trainingHistoryTable tbody').append(`
+                                <tr>
+                                    <td><label>${name}</label></td>
+                                    <td><label>${certificate}</label></td>
+                                    <td><label>${year}</label></td>
+                                            <td style="max-width:5rem;" class="flex justify-content-end">
+                                        <button type="button" class="btn btn-primary edit-row" data-id="${rowIdx}">Edit</button>
+                                        <button type="button" class="btn btn-danger remove-row">Remove</button>
+                                    </td>
+                                </tr>
+                            `);
+
+                    if (model.Trainings) {
+                        model.Trainings.push({ Name: name, Certificate: certificate, Year: year });
+                    } else {
+                        model.Trainings = [{ Name: name, Certificate: certificate, Year: year }];
+                    }
+
+                    rowIdx++;
+                } else {
+                    let row = $('#trainingHistoryTable tbody tr').eq(index);
+                    row.find('td:eq(0) label').text(name);
+                    row.find('td:eq(1) label').text(certificate);
+                    row.find('td:eq(2) label').text(year);
+
+                    model.Trainings[index] = { Name: name, Certificate: certificate, Year: year };
+                }
+
+                $('#trainingHistoryModal').modal('hide');
+                resetTrainingModal();
+            });
+
+            $('#trainingHistoryTable').on('click', '.remove-row', function () {
+                $(this).closest('tr').remove();
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            let model = @Html.Raw(Json.Serialize(Model));
+            let rowIdx = @(Model.CareerHistories != null ? Model.CareerHistories.Count : 0);
+
+
+        function resetCareerModal() {
+            $('#careerHistoryIndex').val('');
+            $('#companyName').val('');
+            $('#lastPosition').val('');
+            $('#lastSalary').val('');
+            $('#year').val('');
+        }
+
+        $('#addNewCareerHistory').click(function () {
+            resetCareerModal();
+            $('#careerHistoryIndex').val('new');
+            $('#careerHistoryModalLabel').text('Add New Career History');
+        });
+
+        $('#careerHistoryTable').on('click', '.edit-row', function () {
+            let index = $(this).data('id');
+            let row = $('#careerHistoryTable tbody tr').eq(index);
+
+            $('#careerHistoryIndex').val(index);
+            $('#companyName').val(row.find('td:eq(0) label').text());
+                $('#lastPosition').val(row.find('td:eq(1) label').text());
+                        $('#lastSalary').val(row.find('td:eq(2) label').text());
+                $('#year').val(row.find('td:eq(3) label').text());
+
+                $('#careerHistoryModalLabel').text('Edit Career History');
+                $('#careerHistoryModal').modal('show');
+            });
+
+            $('#saveCareerHistory').click(function () {
+                let index = $('#careerHistoryIndex').val();
+                let companyName = $('#companyName').val();
+                let lastPosition = $('#lastPosition').val();
+                let lastSalary = $('#lastSalary').val();
+                let year = $('#year').val();
+
+                // Buat objek baru untuk menyimpan data career history
+                let careerHistoryData = {
+                    Company_Name: companyName,
+                    Last_Position: lastPosition,
+                    Last_Salary: lastSalary,
+                    Year: year
+                };
+
+                // Tambahkan atau perbarui data career history sesuai dengan indeks
+                if (index === 'new') {
+                    $('#careerHistoryTable tbody').append(`
+                                <tr>
+                                    <td><label>${companyName}</label></td>
+                                    <td><label>${lastPosition}</label></td>
+                                    <td><label>${lastSalary}</label></td>
+                                    <td><label>${year}</label></td>
+                                            <td style="max-width:5rem;" class="flex justify-content-end">
+                                        <button type="button" class="btn btn-primary edit-row" data-id="${rowIdx}">Edit</button>
+                                        <button type="button" class="btn btn-danger remove-row">Remove</button>
+                                    </td>
+                                </tr>
+                            `);
+
+                    if (model.CareerHistories) {
+                        model.CareerHistories.push(careerHistoryData); // Tambahkan data career history ke dalam objek model.CareerHistories
+                    } else {
+                        model.CareerHistories = [careerHistoryData]; // Buat array baru jika model.CareerHistories belum ada
+                    }
+
+                    rowIdx++;
+                } else {
+                    let row = $('#careerHistoryTable tbody tr').eq(index);
+                    row.find('td:eq(0) label').text(companyName);
+                    row.find('td:eq(1) label').text(lastPosition);
+                    row.find('td:eq(2) label').text(lastSalary);
+                    row.find('td:eq(3) label').text(year);
+
+                    model.CareerHistories[index] = careerHistoryData; // Perbarui data career history dalam objek model.CareerHistories
+                }
+
+                $('#careerHistoryModal').modal('hide');
+                resetCareerModal();
+            });
+
+            $('#careerHistoryTable').on('click', '.remove-row', function () {
+                $(this).closest('tr').remove();
             });
         });
     </script>
 }
+

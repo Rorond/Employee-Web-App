@@ -8,6 +8,10 @@ namespace Employee.Data.Models
 {
     public class Employee
     {
+        public Employee()
+        {
+            StudyHistories = new List<StudyHistory>();
+        }
         public int Id { get; set; }
         public string Position { get; set; }
         public string Name { get; set; }
@@ -26,6 +30,9 @@ namespace Employee.Data.Models
         public string Skill { get; set; }
         public bool Readdy_To_Be_Placed { get; set; }
         public decimal Expected_Sallary { get; set; }
+        public List<StudyHistory> StudyHistories { get; set; }
+        public List<CareerHistory> CareerHistories { get; set; }
+        public List<Training> Trainings { get; set; }
     }
 
 }

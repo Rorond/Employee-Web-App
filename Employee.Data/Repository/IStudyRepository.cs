@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Model = Employee.Data.Models.Employee;
+using Model = Employee.Data.Models.StudyHistory;
 namespace Employee.Data.Repository
 {
-    public interface IEmployeeRepository
+    public interface IStudyRepository
     {
-        Task<int> AddAsync(Model model);
+        Task<bool> AddAsync(Model model);
         Task<bool> UpdateAsync(Model model);
         Task<bool> DeleteAsync(int id);
         Task<Model?> FindAsync(int id);
